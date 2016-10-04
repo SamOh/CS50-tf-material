@@ -1,0 +1,312 @@
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lecture Specific Information to Fill Out
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\LectureTitle}{Week 5}
+%\newcommand{\LectureDate}{\today}
+\newcommand{\LectureDate}{October\ 4,\ 2016}
+\newcommand{\LectureClassName}{CS\ 50}
+\newcommand{\LatexerName}{Samuel\ Oh}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{afterpage}
+\usepackage{abstract}
+\usepackage{tikz}
+\usepackage{ulem}
+\let\underbar\uline
+% In case you need to adjust margins:
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% Setup the header and footer
+\pagestyle{fancy}
+\lhead{\LatexerName}
+\chead{\LectureClassName: \LectureTitle}
+\rhead{\LectureDate}
+\lfoot{\lastxmark}
+\cfoot{}
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterTopicHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}
+\newcommand{\exitTopicHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+                                   \nobreak\extramarks{#1}{}\nobreak}
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}
+   \addtolength{\labelLength}{0.25in}
+   \changetext{}{-\labelLength}{}{}{}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}
+   \marginpar{\fbox{#1}}
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\TopicName}{}
+\newcounter{TopicCounter}
+\newenvironment{Topic}[1][Problem \arabic{TopicCounter}]
+  {\stepcounter{TopicCounter}
+   \renewcommand{\TopicName}{#1}
+   \section{\TopicName}
+   \enterTopicHeader{\TopicName}}
+  {\exitTopicHeader{\TopicName}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\ExampleSectionName}{}
+\newcounter{ExampleSectionCounter}[TopicCounter]
+\newenvironment{ExampleSection}[1][Example \arabic{ExampleSectionCounter}]
+  {\stepcounter{ExampleSectionCounter}
+   \renewcommand{\ExampleSectionName}{#1}
+   \section{\ExampleSectionName}
+   \enterTopicHeader{\ExampleSectionName}}
+  {\exitTopicHeader{\ExampleSectionName}}
+
+\setcounter{secnumdepth}{0}
+\newcounter{ExampleBoxCounter}[TopicCounter]
+\newcommand{\examplebox}[1]
+  {
+  % We put this space here to make sure we're disconnected from the previous
+   % passage
+   \stepcounter{ExampleBoxCounter}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}\enterTopicHeader{\ExampleSectionName}\exitTopicHeader{\ExampleSectionName}\marginpar{\fbox{\#\arabic{ExampleBoxCounter}}}
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \vskip10pt
+   }
+
+\renewcommand{\contentsname}{{\normalsize Topics Covered}}
+\renewcommand{\abstractname}{\LectureTitle\ Summary}
+\renewcommand{\absnamepos}{flushleft}
+
+\theoremstyle{definition}
+\newtheorem*{dfn}{Definition}
+%----------------------------------------------------------------------------------------
+%	CUSTOM COMMANDS DUE TO LAZINESS
+%----------------------------------------------------------------------------------------
+
+%--------------------------------------------
+% Numbers cuz reasons
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\Sp}{{\mathbb S}}
+\newcommand{\A}{{\mathbb A}}
+
+%--------------------------------------------
+% Symbols are long
+\newcommand{\ph}{{\Phi}}
+\newcommand{\vp}{{\varphi}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\mt}{{\mapsto}}
+% Independence
+\newcommand\ind{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independent#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+%--------------------------------------------
+% Partial derivatives are hard
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pp}[2]{\frac{\partial^2 {#1}} {\partial {#2} ^2}}
+\newcommand{\pmix}[3]{\frac{\partial^2 {#1}}{\partial {#2}\, \partial {#3}}}
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS THAT I NEVER REMEMBER LEL
+%----------------------------------------------------------------------------------------
+
+% Integrals
+% \int_{a}^{b} [insert integrand] [insert differential]
+
+% Double integral
+% \iint_{Values being integrated over} [insert integrand] [\, differential] [\, differential]
+
+% Multi integral
+% \idotsint_{Values} [insert integrand f(x, \dots, x_n)] [\, differential \dots differential]
+
+% Summation
+% \sum_{n = start value}^{end value} [function]
+
+% Limits
+% \lim_{x \to value} [function]
+
+% I.I.D.
+% $\overset{\text{i.i.d.}}{\sim}$
+
+% Gradient
+% \nabla (\nabla deez nuts)
+
+% Cases
+% \begin{cases}
+%	{case 1} & \text{if \,} {condition} \\
+%	{case 2} & \text{if \,} {condition} \\
+% \end{cases}
+
+\begin{document}
+\begin{spacing}{1.1}
+\newpage
+
+\tableofcontents
+\addtocontents{toc}{~\hfill\textbf{Page}\par}
+\vskip10pt
+\hrule
+\vskip10pt
+
+% When topics are long, it may be desirable to put a \newpage or a
+% \clearpage before each Topic environment
+% \newpage
+\begin{Topic}[Structs]
+A structure is basically a super-variable. We use structures to logically group
+together a collection of elements (which we will call fields) that together comprise
+ a larger element. For example, here’s the potential definition of a structure
+(struct) for a student:
+\begin{verbatim}
+struct student_t {
+  string name;
+  int year;
+  float gpa;
+};
+\end{verbatim}
+Once we’ve defined the structure, we can then use it like any other type. We access fields of the structure with the
+dot operator (.). We can also have pointers to the structure like we can have pointers to any other type. If we have
+a pointer to a structure, we access its fields with the arrow operator ($->$).
+\begin{verbatim}
+struct student_t john;
+struct student_t * mary = malloc(sizeof(struct student_t));
+john.name = "John";
+mary->name = "Mary";
+john.year = 2014;
+mary->year = 2015;
+john.gpa = 3.48;
+mary->gpa = 3.55;
+\end{verbatim}
+\end{Topic}
+\begin{Topic}[Linked Lists]
+How do you create a linked list? \newline
+Insert into a linked list (at head, tail, middle)? \newline
+Delete out of a linked list? \newline
+Delete an entire linked list? \newline
+And iterate over a linked list?
+\begin{verbatim}
+typedef struct node
+{
+    // just some form of data; could be a char* or whatever
+    int i;
+
+    // pointer to next node; have to include `struct` since this is a recursive definition
+    struct node *next;
+
+    node;
+}
+\end{verbatim}
+
+How do you alter and iterate over linked lists?
+The end of a linked list will always be marked by a pointer to NULL. To iterate
+over a list, then, use a $node *head_ptr$ and simply loop through the list until its
+next field points to NULL. Similarly, to insert or delete a node, simply change
+where the $node *next$ points. Be careful about the order of operations, though!
+Especially when inserting, if done in the wrong order you could lose track of your list!
+
+\end{Topic}
+\begin{Topic}[Hash Tables]
+Hash tables are a great data structure to store information in a semi-organized way. A hash table is made up of at
+least two parts: (1) an array and (2) a hash function. More advanced hash tables, which we will be using, also make
+use of (3) linked lists. Say we want to hash some strings. Let’s create a hash table of linked lists nodes, where each
+of those nodes contains a string and a pointer to another node.
+\begin{verbatim}
+typedef struct _node {
+  char word[50]; // max length of a word is 50
+  struct _node *next;
+} node;
+
+node *hashtable[3]; // our hashtable has 3 possible hash values
+\end{verbatim}
+We can then hash a string to compute a hash code, which is entirely derived from the string itself. For example,
+hash("hello") may be 298. We then mod that to be in the range [0, 2] (for our hashtable) and insert it.
+\begin{verbatim}
+[0]
+[1] -> "hello"
+[2]
+\end{verbatim}
+Then, if we hash("world") and we get 325, we can mod that to be in the range [0, 2] and insert it, rearranging the
+nodes of the linked list as necessary so we don’t lose what was there before.
+\begin{verbatim}
+[0]
+[1] -> "world" -> "hello"
+[2]
+\end{verbatim}
+We can look up strings easily by hashing them again, and then searching through the list pointed to by that hash
+code to find whether or not they are in the list.
+\end{Topic}
+\begin{Topic}[Binary Trees and Tries]
+Notice how with hash tables we are combining simple data structures (arrays and linked lists) in a way so as to create
+a new data structures that has an even higher degree of utility. A trie, discussed in just a moment, uses those same two
+simple structures in a different way to do something completely different.
+A tree is a data structure very similar to a linked list, but with a different interpretation. The rules of a tree
+(into which category binary trees and tries both fall) are as follows: \newline \newline
+1. A tree node can point at its children (named left and right, in a binary tree), or at NULL. \newline
+2. A tree node may not point at any other node other than those listed above, including itself. \newline \newline
+We typically visualize binary trees upside-down from how a regular tree looks.
+The root of the tree is the node at the very top. The leaves are the nodes where both
+children point to NULL (indicated here as colored-in circles). The branches are the
+nodes that are not leaves or the root. And what is a trie, then? A trie is simply a
+tree with an arbitrary number of children. This means that a binary tree is simply a
+special case of a trie, where the number of children is 2. Let’s declare three structures.
+One for a binary tree, one for a binary tree with trie syntax, and one for a trie with
+6 children.
+\begin{verbatim}
+// Binary tree
+typedef struct _btree
+{
+bool valid;
+struct _btree *left;
+struct _btree *right;
+}
+btree_t;
+
+// Binary trie
+typedef struct _btrie
+{
+  bool valid;
+  struct _btrie *kids[2];
+}
+btrie_t;
+
+// 6-child trie
+typedef struct _trie6
+{
+  bool valid;
+  struct _trie6 *kids[6];
+}
+trie6_t;
+\end{verbatim}
+\end{Topic}
+\begin{Topic}[Huffman Encoding]
+Take notes below from examples in class from study.cs50.net!
+\end{Topic}
+% Use \Roman{TopicCounter} for each new topic so it increments in the table of contents
+% Use \begin{ExampleSection} and \examplebox{} as is necessary
+
+\end{spacing}
+\end{document}
