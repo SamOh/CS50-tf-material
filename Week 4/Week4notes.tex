@@ -1,0 +1,352 @@
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lecture Specific Information to Fill Out
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\LectureTitle}{Week 4}
+%\newcommand{\LectureDate}{\today}
+\newcommand{\LectureDate}{September\ 27,\ 2016}
+\newcommand{\LectureClassName}{CS\ 50}
+\newcommand{\LatexerName}{Samuel\ Oh}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{afterpage}
+\usepackage{abstract}
+\usepackage{tikz}
+\usepackage{ulem}
+\let\underbar\uline
+% In case you need to adjust margins:
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% Setup the header and footer
+\pagestyle{fancy}
+\lhead{\LatexerName}
+\chead{\LectureClassName: \LectureTitle}
+\rhead{\LectureDate}
+\lfoot{\lastxmark}
+\cfoot{}
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterTopicHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}
+\newcommand{\exitTopicHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+                                   \nobreak\extramarks{#1}{}\nobreak}
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}
+   \addtolength{\labelLength}{0.25in}
+   \changetext{}{-\labelLength}{}{}{}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}
+   \marginpar{\fbox{#1}}
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\TopicName}{}
+\newcounter{TopicCounter}
+\newenvironment{Topic}[1][Problem \arabic{TopicCounter}]
+  {\stepcounter{TopicCounter}
+   \renewcommand{\TopicName}{#1}
+   \section{\TopicName}
+   \enterTopicHeader{\TopicName}}
+  {\exitTopicHeader{\TopicName}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\ExampleSectionName}{}
+\newcounter{ExampleSectionCounter}[TopicCounter]
+\newenvironment{ExampleSection}[1][Example \arabic{ExampleSectionCounter}]
+  {\stepcounter{ExampleSectionCounter}
+   \renewcommand{\ExampleSectionName}{#1}
+   \section{\ExampleSectionName}
+   \enterTopicHeader{\ExampleSectionName}}
+  {\exitTopicHeader{\ExampleSectionName}}
+
+\setcounter{secnumdepth}{0}
+\newcounter{ExampleBoxCounter}[TopicCounter]
+\newcommand{\examplebox}[1]
+  {
+  % We put this space here to make sure we're disconnected from the previous
+   % passage
+   \stepcounter{ExampleBoxCounter}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}\enterTopicHeader{\ExampleSectionName}\exitTopicHeader{\ExampleSectionName}\marginpar{\fbox{\#\arabic{ExampleBoxCounter}}}
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \vskip10pt
+   }
+
+\renewcommand{\contentsname}{{\normalsize Topics Covered}}
+\renewcommand{\abstractname}{\LectureTitle\ Summary}
+\renewcommand{\absnamepos}{flushleft}
+
+\theoremstyle{definition}
+\newtheorem*{dfn}{Definition}
+%----------------------------------------------------------------------------------------
+%	CUSTOM COMMANDS DUE TO LAZINESS
+%----------------------------------------------------------------------------------------
+
+%--------------------------------------------
+% Numbers cuz reasons
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\Sp}{{\mathbb S}}
+\newcommand{\A}{{\mathbb A}}
+
+%--------------------------------------------
+% Symbols are long
+\newcommand{\ph}{{\Phi}}
+\newcommand{\vp}{{\varphi}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\mt}{{\mapsto}}
+% Independence
+\newcommand\ind{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independent#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+%--------------------------------------------
+% Partial derivatives are hard
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pp}[2]{\frac{\partial^2 {#1}} {\partial {#2} ^2}}
+\newcommand{\pmix}[3]{\frac{\partial^2 {#1}}{\partial {#2}\, \partial {#3}}}
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS THAT I NEVER REMEMBER LEL
+%----------------------------------------------------------------------------------------
+
+% Integrals
+% \int_{a}^{b} [insert integrand] [insert differential]
+
+% Double integral
+% \iint_{Values being integrated over} [insert integrand] [\, differential] [\, differential]
+
+% Multi integral
+% \idotsint_{Values} [insert integrand f(x, \dots, x_n)] [\, differential \dots differential]
+
+% Summation
+% \sum_{n = start value}^{end value} [function]
+
+% Limits
+% \lim_{x \to value} [function]
+
+% I.I.D.
+% $\overset{\text{i.i.d.}}{\sim}$
+
+% Gradient
+% \nabla (\nabla deez nuts)
+
+% Cases
+% \begin{cases}
+%	{case 1} & \text{if \,} {condition} \\
+%	{case 2} & \text{if \,} {condition} \\
+% \end{cases}
+
+\begin{document}
+\begin{spacing}{1.1}
+\newpage
+
+\tableofcontents
+\addtocontents{toc}{~\hfill\textbf{Page}\par}
+\vskip10pt
+\hrule
+\vskip10pt
+
+% When topics are long, it may be desirable to put a \newpage or a
+% \clearpage before each Topic environment
+% \newpage
+% Use \Roman{TopicCounter} for each new topic so it increments in the table of contents
+% Use \begin{ExampleSection} and \examplebox{} as is necessary
+\begin{Topic}[Redirection]
+At the command line, by using \textbf{redirection} commands like $>$ or $|$ you can control the input and output of your program.
+
+$>$  - output; print the output of a program to a file instead of stdout
+(e.g. ./hello $>$ output.txt)
+
+$>>$ - append to an output file instead of writing over data
+
+2$>$ - this is just like the above, instead it will only print out error messages to a file
+
+$<$  - input; use the contents of some file as input to a program e.g. ./hello < input.txt
+
+$|$  - pipe; take the output of one program and use it as input in another
+\end{Topic}
+\begin{Topic}[File I/O]
+So far, we have only been working with stdout (your computer screen) and taking
+input from the user via get-string, etc. In order for us to have persistent data
+(data that exists beyond the time our program is running), we need the ability to work with files.
+Fortunately, we can do so with C. All of the functions we need to operate on files are obtained easily by
+\begin{verbatim}
+#include <stdio.h>
+\end{verbatim}
+A full list of the functions that are used for file input/output manipulation,
+including what parameters each of these functions take, is at http://www.cplusplus.com/reference/clibrary/cstdio/. \newline
+Here are some of the big ones:
+\begin{itemize}
+\item fopen(string filename, string method) - opens the file named filename for the reason specified in method
+(“r” for reading, “w” for writing, “a” for appending), and returns a FILE * (file pointer) to that file.
+\item fclose(FILE* fp) - closes the file pointed to by fp
+\item fgetc(FILE* fp) - retrieves the next character in the file pointed to by fp, and returns that character
+\item fputc(char c, FILE* fp) - writes the character c to the file pointed to by fp. The return value is c, if
+successful
+\item fread(void* buffer, int size, int count, FILE* fp) - reads count items of size size from the file pointed
+to by fp into buffer. The return value is count, if successful
+\item fwrite(void* buffer, int size, int count, FILE* fp) - writes count items of size size from buffer into
+the file pointed to by fp. The return value is count, if successful
+\end{itemize}
+Here is an example of how to use file I/O (input/output) in code.
+\begin{verbatim}
+#include <stdio.h>
+
+int main(void)
+{
+    // open file "input.txt" in read only mode
+    FILE* in = fopen("input.txt", "r");
+
+    // always make sure fopen() doesn't return NULL!
+    if(in == NULL)
+        return 1;
+    else
+    {
+        // open file "output.txt" in write only mode
+        FILE* out = fopen("output.txt", "w");
+
+        // make sure you could open file
+        if(out == NULL)
+            return 2;
+
+        // get character
+        int c = fgetc(in);
+
+        while(c != EOF)
+        {
+            // write chracter to output file
+            fputc(c, out);
+            c = fgetc(in);
+        }
+
+        // close files to avoid memory leaks!
+        fclose(in);
+        fclose(out);
+    }
+}
+\end{verbatim}
+\end{Topic}
+\begin{Topic}[Pointers]
+Pointers have an awful reputation among beginning programming students because
+they give you the ability to makesome pretty dramatic mistakes.  As long as you are
+careful with them though you'll be fine. Just remember the following things!
+
+\begin{enumerate}
+  \item \textbf{Pointers are Addresses:} A pointer is merely an address in memory.
+  When you dereference a pointer with the dereferencing operator (*) you are simply
+  examining the piece of data that is at that location.
+  For example, in the following code:
+
+  \begin{verbatim}
+  int* p;
+  p = 0x6562AD3E;
+  printf("%d\n", *p);
+  \end{verbatim}
+
+  All that is happening is that we are looking at the data contained in memory
+  location 0x6562AD3E, interpreting it as an integer, and printing it to the screen.
+  Of course, most people don't know off the top of their heads where everything in
+  memory is, so using memory addresses like the one I've just used is somewhat impractical.
+  That's why C provides the addressing operator \&.  Here's an example of it.
+
+  \begin{verbatim}
+  int i = 18;
+  int* m;
+  m = &i;
+  (*m)++;
+  \end{verbatim}
+
+  After the execution of this code, i would have the value 19, instead.
+
+  \item \textbf{Arrays are secretly just pointers.} After declaring:
+
+  \begin{verbatim}
+  double averages[40];
+  \end{verbatim}
+
+  Any reference to the array name averages is really a pointer to its first element, averages[0].
+  Likewise, averages' other elements can be accessed by saying *(averages + n), which is
+  equivalent to averages[n].
+
+  \item \textbf{Pointers give us the power to allocate memory dynamically.} Sometimes, you may not
+  know how much memory you'll actually need when you are programming, and it will be
+  dependent on other factors. Up til now, we've been using only static memory (memory
+  whose size is known by the program at compile time). C gives us the power to allocate
+  memory on the fly (dynamically) as we need it, but we need pointers to do it. To do so,
+  we need to use \textbf{malloc()} and \textbf{sizeof()}, two tools provided by C to make this happen.
+  Assume that we wait for an input from the user to figure out how many elements an
+  array needs. True, in C99 and making use ofthe CS50 library you can simply do:
+
+  \begin{verbatim}
+  int arrsize = GetInt();
+  int arr[arrsize];
+  \end{verbatim}
+
+  But it wasn't always possible to do that.  You used to have to do this (for simplicity's
+  sake we'll use the CS50library again):
+
+  \begin{verbatim}
+  int arrsize = GetInt();
+  int* arr = malloc(sizeof(int) * arrsize);
+  \end{verbatim}
+
+  Notice what malloc() does. I am asking malloc() to give me arrsize blocks of contiguous memory,
+  with each block the size of an int(4 bytes apiece). Take care to always make sure
+  that you actually get that memory back though! If malloc() is unable to allocate
+  memory for you, because of an error or because no memory is left, it will return a
+  NULL pointer. Dereferencing a NULL pointer will crash your program.  So always do a
+  NULL check! If I pass the NULL check, I can then use this memory in the same way
+  that I did the first example in this section, with one really important exception...
+  \item \textbf{All malloc()'d memory must subsequently be free()'d.} Failure to do so results in
+  what's called a memory leak (which is really bad). When we have finished using a
+  dynamically-allocated piece of memory, we need to give it back to C, in case it
+  needs to use that memory again for something else.  If we leak memory by failing to
+  do so, we run the risk of running out of memory and causing our program to crash.
+  It's super easy to free():
+  \begin{verbatim}
+  int x = GetInt();
+  char* word = malloc(sizeof(char) * x);
+
+  // do stuff
+
+  free(word);
+  \end{verbatim}
+   Just be careful not to double free(), and also be careful only to free() memory that
+   was previously allocated with malloc(), otherwise your risk of a memory leak is still present!
+\end{enumerate}
+The best way to make sure you are doing this correctly is to use \textbf{Valgrind}. It's a program
+that you will be using on future psets to check to make sure there is no mistakes with your
+memory (i.e. you forgot to free memory, you dereferenced a null pointer, memory is lost, etc.)
+\end{Topic}
+\begin{Topic}[Hexadecimal]
+Take notes on the example for hexadecimal here!
+\end{Topic}
+\end{spacing}
+\end{document}

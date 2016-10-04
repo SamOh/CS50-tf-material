@@ -1,0 +1,5 @@
+\nobreakspace {}\hfill \textbf {Page}\par 
+\contentsline {section}{Redirection}{1}{section*.2}
+\contentsline {section}{File I/O}{1}{section*.3}
+\contentsline {section}{Pointers}{2}{section*.4}
+\contentsline {section}{Hexadecimal}{4}{section*.5}
