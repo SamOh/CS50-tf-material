@@ -1,0 +1,308 @@
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lecture Specific Information to Fill Out
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\LectureTitle}{Week 3}
+%\newcommand{\LectureDate}{\today}
+\newcommand{\LectureDate}{September\ 20,\ 2016}
+\newcommand{\LectureClassName}{CS\ 50}
+\newcommand{\LatexerName}{Samuel\ Oh}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{afterpage}
+\usepackage{abstract}
+\usepackage{tikz}
+\usepackage{ulem}
+\let\underbar\uline
+% In case you need to adjust margins:
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% Setup the header and footer
+\pagestyle{fancy}
+\lhead{\LatexerName}
+\chead{\LectureClassName: \LectureTitle}
+\rhead{\LectureDate}
+\lfoot{\lastxmark}
+\cfoot{}
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterTopicHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}
+\newcommand{\exitTopicHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+                                   \nobreak\extramarks{#1}{}\nobreak}
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}
+   \addtolength{\labelLength}{0.25in}
+   \changetext{}{-\labelLength}{}{}{}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}
+   \marginpar{\fbox{#1}}
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\TopicName}{}
+\newcounter{TopicCounter}
+\newenvironment{Topic}[1][Problem \arabic{TopicCounter}]
+  {\stepcounter{TopicCounter}
+   \renewcommand{\TopicName}{#1}
+   \section{\TopicName}
+   \enterTopicHeader{\TopicName}}
+  {\exitTopicHeader{\TopicName}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\ExampleSectionName}{}
+\newcounter{ExampleSectionCounter}[TopicCounter]
+\newenvironment{ExampleSection}[1][Example \arabic{ExampleSectionCounter}]
+  {\stepcounter{ExampleSectionCounter}
+   \renewcommand{\ExampleSectionName}{#1}
+   \section{\ExampleSectionName}
+   \enterTopicHeader{\ExampleSectionName}}
+  {\exitTopicHeader{\ExampleSectionName}}
+
+\setcounter{secnumdepth}{0}
+\newcounter{ExampleBoxCounter}[TopicCounter]
+\newcommand{\examplebox}[1]
+  {
+  % We put this space here to make sure we're disconnected from the previous
+   % passage
+   \stepcounter{ExampleBoxCounter}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}\enterTopicHeader{\ExampleSectionName}\exitTopicHeader{\ExampleSectionName}\marginpar{\fbox{\#\arabic{ExampleBoxCounter}}}
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \vskip10pt
+   }
+
+\renewcommand{\contentsname}{{\normalsize Topics Covered}}
+\renewcommand{\abstractname}{\LectureTitle\ Summary}
+\renewcommand{\absnamepos}{flushleft}
+
+\theoremstyle{definition}
+\newtheorem*{dfn}{Definition}
+%----------------------------------------------------------------------------------------
+%	CUSTOM COMMANDS DUE TO LAZINESS
+%----------------------------------------------------------------------------------------
+
+%--------------------------------------------
+% Numbers cuz reasons
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\Sp}{{\mathbb S}}
+\newcommand{\A}{{\mathbb A}}
+
+%--------------------------------------------
+% Symbols are long
+\newcommand{\ph}{{\Phi}}
+\newcommand{\vp}{{\varphi}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\mt}{{\mapsto}}
+% Independence
+\newcommand\ind{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independent#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+%--------------------------------------------
+% Partial derivatives are hard
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pp}[2]{\frac{\partial^2 {#1}} {\partial {#2} ^2}}
+\newcommand{\pmix}[3]{\frac{\partial^2 {#1}}{\partial {#2}\, \partial {#3}}}
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS THAT I NEVER REMEMBER LEL
+%----------------------------------------------------------------------------------------
+
+% Integrals
+% \int_{a}^{b} [insert integrand] [insert differential]
+
+% Double integral
+% \iint_{Values being integrated over} [insert integrand] [\, differential] [\, differential]
+
+% Multi integral
+% \idotsint_{Values} [insert integrand f(x, \dots, x_n)] [\, differential \dots differential]
+
+% Summation
+% \sum_{n = start value}^{end value} [function]
+
+% Limits
+% \lim_{x \to value} [function]
+
+% I.I.D.
+% $\overset{\text{i.i.d.}}{\sim}$
+
+% Gradient
+% \nabla (\nabla deez nuts)
+
+% Cases
+% \begin{cases}
+%	{case 1} & \text{if \,} {condition} \\
+%	{case 2} & \text{if \,} {condition} \\
+% \end{cases}
+
+\begin{document}
+\begin{spacing}{1.1}
+\newpage
+
+\tableofcontents
+\addtocontents{toc}{~\hfill\textbf{Page}\par}
+\vskip10pt
+\hrule
+\vskip10pt
+
+% When topics are long, it may be desirable to put a \newpage or a
+% \clearpage before each Topic environment
+% \newpage
+\begin{Topic}[CS50 Study]
+	The material for this week may get a little confusing. Make sure to use your resources,
+	such as CS50 Study\url{https://study.cs50.net/binary_search?toc=binary_search,bubble_sort,insertion_sort,selection_sort,merge_sort}
+\end{Topic}
+% Use \Roman{TopicCounter} for each new topic so it increments in the table of contents
+% Use \begin{ExampleSection} and \examplebox{} as is necessary
+\begin{Topic}[Arrays Review]
+	What data types can you use arrays for? \\\\
+	Do you need a \textbackslash0 after every type of array?
+\end{Topic}
+\begin{Topic}[Asymptotic Notation]
+	We measure computational complexity (aka "Big O") by comparing how quickly the number
+	of operations ittakes to complete the function or program grows as we increase the size
+	of the input to some arbitrarily largevalue.  This lets us know how the well the algorithm
+	scales with larger problems.  When we talk about "inputsize", we mean whatever makes sense
+	with respect to the algorithm.  (For a string, probably the length of the string; for an array,
+	probably the number of elements in the array...)
+	Just like the upper bound ("big O") we also pay attention to the lower bound $\Omega$, on an algorithm's
+	running time. The lower bound corresponds to an algorithm's best case scenario. \newline
+	Some examples of Upper/Lower bounds: \newline \newline
+	O(n), O(1), O(n\textsuperscript{2}), O(log(n)), O(n log(n))
+\end{Topic}
+	\begin{Topic}[Sorting Algorithms]
+	\textbf{Example 1: Linear Search} \newline
+	What is the upper bound O, and the lowerbound $\Omega$? \newline
+	Hint: Think back to David's phone book example from class. \newline \newline \newline \newline
+	When you perform a linear search in the phone book, it could be on the first page, and therefore, it
+	would only take one operation. It could also be on the last page, in which case it would take
+	n operations. \newline \newline
+	\textbf{Example 2: Binary Search} \newline
+	Binary search is an algorithm than runs, in the worst case, in O(log n) time and
+	in the best case, Ω(1) time. \newline
+	Think back to the phone book example David did in class: if you get lucky and the
+	first page you choose includes the person you’re looking for, that took only 1 operation.
+	Otherwise, you will have to do max log(n) operations to find them. \newline \newline
+	This only works if the list you’re looking through is sorted. Otherwise, it would
+	be impossible to know for certain that the halves of the list you’re discarding don’t
+	have what you’re looking for.
+	to free variables, we have \newline \newline
+	\textbf{Example 3: Bubble Sort}
+	Bubble Sort runs in O(n2) time complexity. It works on an array of size n by
+	iterating across the unsorted part of the array, swapping adjacent items that are
+	out of place. In this way, larger elements tend to bubble to the top. \newline \newline
+	For example, let’s say you’re given array [4, 1, 7, 10, 3]: what are the steps?\newline \newline \newline \newline
+	The lower-bound on runtime is Ω(n), though this requires us to use a swap counter
+	or flag to know if we didn’t make any swaps (in which case the array is already sorted!) \newline
+	Why do you need to know how many swaps were made?\newline \newline
+	Can you explain the math behind the runtime? \newline \newline
+	For practice, write out the pseudocode! \newline \newline \newline
+	\textbf{Example 4: Selection Sort}
+	Selection sort runs in O(n2) time complexity. It works on an array of size n,
+	building the final sorted array by removing, one at a time, the smallest element
+	in the unsorted array and placing it at the head of the sorted array. \newline
+	For example, with array [50, 1, 42, 4, 51]: \newline \newline \newline
+
+	The lower-bound on runtime is Ω(n2). Selection sort is dumb, and always will have
+	to find the smallest element on each pass.\newline \newline
+	\textbf{Example 5: Insertion Sort}
+	Insertion sort runs in O(n2) time complexity. It works on an array of size n,
+	building the final sorted array one element at a time by removing, one at a time,
+	elements in the unsorted portion of the array and placing them in their correct
+	position in the sorted array. \newline
+	For example, with array [2, 8, 1, 4, 3]: \newline \newline \newline
+	Insertion sort is in many cases better than bubble and selection Sort. Whereas
+	both bubble and selection sort in normal cases, without any optimizations, run
+	in the best case n2, insertion sort will run in n. But the upper bound on runtime is nevertheless n2.
+
+	The lower-bound on runtime is Ω(n2). Selection sort is dumb, and always will have
+	to find the smallest element on each pass. \newline	\newline
+	\textbf{Example 6: Merge Sort}
+	Merge sort is very different from the previous three sorting algorithms. It is
+	most easily implemented using recursion instead of iteration
+
+	If worried your students might be uncomfortable with recursion, here’s a sample
+	program showing both an iterative and recursive approach to summing integers.
+
+	And second, it runs in $nlog(n)$ time making it significantly faster than the other
+	algorithms. Its power comes from its divide and conquer approach. Think of it
+	like this: whereas the other sorting algorithms take n comparisons n times as they
+	traverse an array, merge sort only has to do n comparisons log(n) times since the
+	size of the array is halved each recursive call (think back to the phone book from binary search!) \newline
+	Let's try an example with array, [3,5,2,6,4,1]: \newline \newline \newline
+	Below is the code for Merge sort.
+	\begin{verbatim}
+	int mergesort(int x, int y[])
+	{
+    if (x == 0)
+        return y[0];
+    else
+        return mergesort(x - 1, y) + y[x];
+	}
+	\end{verbatim}
+
+	\end{Topic}
+	\begin{Topic}[Algorithms Summary]
+		\begin{table}[h]
+		\centering
+		\caption{Runtime Summaries}
+		\label{my-label}
+		\begin{tabular}{|p{3cm}|p{10cm}|p{1cm}|p{1cm}|}
+		\hline
+		Algorithm Name & Basic Concept                                                                                                                               & O                      & $\Omega$               \\ \hline
+		Selection Sort & Find the \textbf\{smallest\} unsorted element in an array and swap it with the first unsorted element of that array.                        & n\textsuperscript{2}   & n\textsuperscript{2}   \\ \hline
+		Bubble Sort    & Swap adjacent pairs of elements if they are out of order, effectively “bubbling” larger elements to the right and smaller ones to the left. & n\textsuperscript{2}   & n                      \\ \hline
+		Insertion Sort & Proceed once through the array from left-to-right, shifting elements as necessary to insert each element into its correct place.            & n\textsuperscript{2}   & n                      \\ \hline
+		Merge Sort     & Split the full array into subarrays, then merge those subarrays back together in the correct order                                          & n log n                & n log n                \\ \hline
+		Linear Search  & Iterate across the array from left-to-right, trying to find the target element.                                                             & n                      & 1                      \\ \hline
+		Binary Search  & Given a sorted array, divide and conquer by systematically eliminating half of the remaining elements in the search for the target element. & log n                  & 1                      \\ \hline
+		\end{tabular}
+		\end{table}
+	\end{Topic}
+	\begin{Topic}[Recursion]
+	Recursion is a divide-and-conquer approach to problem solving that leverages solutions
+	to smaller problems (for which solutions are axiomatic or much easier to determine)
+	to help in determining the solution to a larger one. \newline
+	Draw Sam's machine/diagram on this page! \newline \newline \newline
+
+	Each recursive procedure has two pieces: \newline
+	1. Base case (where recursion stops, the simple solution is given) \newline
+	2. Recursive case (where the problem is made a little bit smaller but another
+	functioncall is made and another frame is placed onto the stack) \newline	\newline
+	Example of recursion: Code out factorial in blank space below \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline
+
+	Recursion is great! Howerver, it has downsides, especially given how memory-intensive it can be to employ.
+	And while a recursive algorithm is not always required, it frequently looks much
+	more beautiful and (though recursion is not itself a simple concept), a recursive
+	implementation usually looks much simpler once coded.
+	\end{Topic}
+\end{spacing}
+\end{document}
