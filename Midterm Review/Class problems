@@ -1,0 +1,33 @@
+Steps to break the problem down.
+
+1. Psuedocode!
+  + What is is that you are trying to do?
+  + Can you write it out in words?
+
+2. Make sure to include checks!
+  + Especially if the question itself asks you to check for NULL, use it as a hint!
+
+3. Pay Attention to key words!
+  + "own block of dynamically allocated memory" – You will want to use malloc
+
+4. Translate the pseudocode
+  + This is the easiest part, once you have the logic down, just translate it into C!
+
+5. Look at lecture notes
+  + you have access to them, so use them.
+
+
+QUESTION #8
+Pseudocode:
+
+  first, allocate memory...
+
+
+
+QUESTION #17
+Pseudocode:
+
+if s.size isn't full
+  then put n into s.numbers[s.size]
+  increment s.size to the next value
+
