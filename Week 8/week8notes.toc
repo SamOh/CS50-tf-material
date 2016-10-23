@@ -1,0 +1,9 @@
+\nobreakspace {}\hfill \textbf {Page}\par 
+\contentsline {section}{Python}{1}{section*.2}
+\contentsline {section}{Variables}{1}{section*.3}
+\contentsline {section}{Conditionals}{2}{section*.4}
+\contentsline {section}{Loops}{2}{section*.5}
+\contentsline {section}{Arrays/Lists}{3}{section*.6}
+\contentsline {section}{Functions}{3}{section*.7}
+\contentsline {section}{MVC}{3}{section*.8}
+\contentsline {section}{Cool, fun python examples!}{3}{section*.9}

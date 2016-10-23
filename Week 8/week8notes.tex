@@ -1,0 +1,293 @@
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lecture Specific Information to Fill Out
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\LectureTitle}{Week 8}
+%\newcommand{\LectureDate}{\today}
+\newcommand{\LectureDate}{October\ 23,\ 2016}
+\newcommand{\LectureClassName}{CS\ 50}
+\newcommand{\LatexerName}{Samuel\ Oh}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{afterpage}
+\usepackage{abstract}
+\usepackage{tikz}
+\usepackage{ulem}
+\let\underbar\uline
+% In case you need to adjust margins:
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% Setup the header and footer
+\pagestyle{fancy}
+\lhead{\LatexerName}
+\chead{\LectureClassName: \LectureTitle}
+\rhead{\LectureDate}
+\lfoot{\lastxmark}
+\cfoot{}
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterTopicHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}
+\newcommand{\exitTopicHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+                                   \nobreak\extramarks{#1}{}\nobreak}
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}
+   \addtolength{\labelLength}{0.25in}
+   \changetext{}{-\labelLength}{}{}{}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}
+   \marginpar{\fbox{#1}}
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\TopicName}{}
+\newcounter{TopicCounter}
+\newenvironment{Topic}[1][Problem \arabic{TopicCounter}]
+  {\stepcounter{TopicCounter}
+   \renewcommand{\TopicName}{#1}
+   \section{\TopicName}
+   \enterTopicHeader{\TopicName}}
+  {\exitTopicHeader{\TopicName}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\ExampleSectionName}{}
+\newcounter{ExampleSectionCounter}[TopicCounter]
+\newenvironment{ExampleSection}[1][Example \arabic{ExampleSectionCounter}]
+  {\stepcounter{ExampleSectionCounter}
+   \renewcommand{\ExampleSectionName}{#1}
+   \section{\ExampleSectionName}
+   \enterTopicHeader{\ExampleSectionName}}
+  {\exitTopicHeader{\ExampleSectionName}}
+
+\setcounter{secnumdepth}{0}
+\newcounter{ExampleBoxCounter}[TopicCounter]
+\newcommand{\examplebox}[1]
+  {
+  % We put this space here to make sure we're disconnected from the previous
+   % passage
+   \stepcounter{ExampleBoxCounter}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}\enterTopicHeader{\ExampleSectionName}\exitTopicHeader{\ExampleSectionName}\marginpar{\fbox{\#\arabic{ExampleBoxCounter}}}
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \vskip10pt
+   }
+
+\renewcommand{\contentsname}{{\normalsize Topics Covered}}
+\renewcommand{\abstractname}{\LectureTitle\ Summary}
+\renewcommand{\absnamepos}{flushleft}
+
+\theoremstyle{definition}
+\newtheorem*{dfn}{Definition}
+%----------------------------------------------------------------------------------------
+%	CUSTOM COMMANDS DUE TO LAZINESS
+%----------------------------------------------------------------------------------------
+
+%--------------------------------------------
+% Numbers cuz reasons
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\Sp}{{\mathbb S}}
+\newcommand{\A}{{\mathbb A}}
+
+%--------------------------------------------
+% Symbols are long
+\newcommand{\ph}{{\Phi}}
+\newcommand{\vp}{{\varphi}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\mt}{{\mapsto}}
+% Independence
+\newcommand\ind{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independent#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+%--------------------------------------------
+% Partial derivatives are hard
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pp}[2]{\frac{\partial^2 {#1}} {\partial {#2} ^2}}
+\newcommand{\pmix}[3]{\frac{\partial^2 {#1}}{\partial {#2}\, \partial {#3}}}
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS THAT I NEVER REMEMBER LEL
+%----------------------------------------------------------------------------------------
+
+% Integrals
+% \int_{a}^{b} [insert integrand] [insert differential]
+
+% Double integral
+% \iint_{Values being integrated over} [insert integrand] [\, differential] [\, differential]
+
+% Multi integral
+% \idotsint_{Values} [insert integrand f(x, \dots, x_n)] [\, differential \dots differential]
+
+% Summation
+% \sum_{n = start value}^{end value} [function]
+
+% Limits
+% \lim_{x \to value} [function]
+
+% I.I.D.
+% $\overset{\text{i.i.d.}}{\sim}$
+
+% Gradient
+% \nabla (\nabla deez nuts)
+
+% Cases
+% \begin{cases}
+%	{case 1} & \text{if \,} {condition} \\
+%	{case 2} & \text{if \,} {condition} \\
+% \end{cases}
+
+\begin{document}
+\begin{spacing}{1.1}
+\newpage
+
+\tableofcontents
+\addtocontents{toc}{~\hfill\textbf{Page}\par}
+\vskip10pt
+\hrule
+\vskip10pt
+
+% When topics are long, it may be desirable to put a \newpage or a
+% \clearpage before each Topic environment
+% \newpage
+% Use \Roman{TopicCounter} for each new topic so it increments in the table of contents
+% Use \begin{ExampleSection} and \examplebox{} as is necessary
+\begin{Topic}[Python]
+Why Python? What is different about Python? Python is currently used in a lot of web development
+and is a very powerful, higher-level language(higher-level in the sense of abstraction).
+You'll find that the syntax is much more intuitive and this language is easier to use. I hope
+you like it (I really like Python and use it for most of my coding projects)\\\\
+To start writing python code, open up a file with .py as the extension. Also, with python, you
+don't have to compile your code before running! Now you to run your code, just write:\\
+python3 example.py
+\end{Topic}
+\begin{Topic}[Variables]
+There are two main differences\\
+1. No type declarations necessary\\
+2. To declare a variable, you need to initialize it.\\
+Let's look at some examples in code!
+\begin{verbatim}
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    string s = get_string();
+    printf("hello, %s\n", s);
+}
+
+import cs50
+
+s = cs50.get_string()
+print("hello, {}".format(s))
+
+\end{verbatim}
+\textbf{KEY TAKEAWAYS: No curly braces, no semicolons, no type declarations, variables must
+be initialized instead of declared alone.}
+\end{Topic}
+\begin{Topic}[Conditionals]
+The same conditionals in C exist in python as well! (if/else, loops, etc.) and
+boolean operators/comparators are different too. So, instead of using $||$ like you did
+in C, you would now just say "or". And instead of $\&\&$, you just use "and". Same thing with
+$!$ and "not".\\\\
+Now lets look at some key code examples to help move into the python world.\\\\
+I can send the code out along with the files if you would find that helpful!
+Code is in file python/2-conditions and python/3-logical\\\\
+\textbf{KEY TAKEAWAYS: instead of encapsulating code within curly braces, use a colon and indentation.
+Also, conditions don't have to be in parenthesis}
+\end{Topic}
+\begin{Topic}[Loops]
+While loops and for loops exist in python. Lets look at some examples to help us understand/see
+the key differences.\\
+\begin{verbatim}
+while height > 0:
+  # code here
+
+while (height > 0)
+{
+  // code here
+}
+\end{verbatim} Here, notice the differences in comments, strucutre, code. Let's look at some more complex
+while loop examples in the IDE (I can send these out after too)\\
+\begin{verbatim}
+for i in range(0,height):
+  # use i to do something
+
+for (int i = 0; i < height; i++)
+{
+  # use i to do something
+}
+\end{verbatim} Notice again, the changes in syntax. Tabs make a difference, comments are now used with
+the $\#$ symbol instead of //. Let's look at more complex for loops!
+\textbf{KEY TAKEAWAYS: Understand how a while loop and a for loop differs between c and python.}
+\end{Topic}
+\begin{Topic}[Arrays/Lists]
+Python arrays (more appropriately known as lists) are notfixed in size; they can
+grow or shrink as needed, and you can always tack extra elements onto your array
+and splice things in and out easily. Lists in python are a lot better/more powerful
+than arrays were in C!\\\\
+Declaring a list:
+\begin{verbatim}
+nums = []
+nums = [1,2,3,4]
+nums.append(5)
+What is nums now?
+
+nums.insert(1, 5)
+What is nums now?
+
+a = [2,3]
+b = a + nums
+What is b now?
+
+\end{verbatim}
+\textbf{KEY TAKEAWAYS: know how to manipulate lists!}
+\end{Topic}
+\begin{Topic}[Functions]
+Function declaration is very similar to C. Lets look at a quick example:\\
+\begin{verbatim}
+def square(x):
+  x * x
+
+square(2)
+what is returned?
+
+\end{verbatim}
+\textbf{KEY TAKEAWAYS: you don't need to specify return type, use def keyword, and inputs
+are in the parenthesis}
+\end{Topic}
+\begin{Topic}[MVC]
+Model View Controller (MVC) is an important web software paradigm to help us organize our code when
+developing on the web. Lets take a look at what CS50.study has to say about this!
+\end{Topic}
+\begin{Topic}[Cool, fun python examples!]
+Look at some cool, fun code examples/things you can do with python!
+\end{Topic}
+\end{spacing}
+\end{document}
