@@ -1,0 +1,5 @@
+\nobreakspace {}\hfill \textbf {Page}\par 
+\contentsline {section}{Decorators}{1}{section*.2}
+\contentsline {section}{Flask}{1}{section*.3}
+\contentsline {section}{Jinja}{2}{section*.4}
+\contentsline {section}{SQL}{2}{section*.5}

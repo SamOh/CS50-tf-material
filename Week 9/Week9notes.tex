@@ -1,0 +1,277 @@
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lecture Specific Information to Fill Out
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\LectureTitle}{Week 9}
+%\newcommand{\LectureDate}{\today}
+\newcommand{\LectureDate}{November\ 1,\ 2016}
+\newcommand{\LectureClassName}{CS\ 50}
+\newcommand{\LatexerName}{Samuel\ Oh}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{afterpage}
+\usepackage{abstract}
+\usepackage{tikz}
+\usepackage{ulem}
+\let\underbar\uline
+% In case you need to adjust margins:
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% Setup the header and footer
+\pagestyle{fancy}
+\lhead{\LatexerName}
+\chead{\LectureClassName: \LectureTitle}
+\rhead{\LectureDate}
+\lfoot{\lastxmark}
+\cfoot{}
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterTopicHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}
+\newcommand{\exitTopicHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+                                   \nobreak\extramarks{#1}{}\nobreak}
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}
+   \addtolength{\labelLength}{0.25in}
+   \changetext{}{-\labelLength}{}{}{}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}
+   \marginpar{\fbox{#1}}
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\TopicName}{}
+\newcounter{TopicCounter}
+\newenvironment{Topic}[1][Problem \arabic{TopicCounter}]
+  {\stepcounter{TopicCounter}
+   \renewcommand{\TopicName}{#1}
+   \section{\TopicName}
+   \enterTopicHeader{\TopicName}}
+  {\exitTopicHeader{\TopicName}}
+
+\setcounter{secnumdepth}{0}
+\newcommand{\ExampleSectionName}{}
+\newcounter{ExampleSectionCounter}[TopicCounter]
+\newenvironment{ExampleSection}[1][Example \arabic{ExampleSectionCounter}]
+  {\stepcounter{ExampleSectionCounter}
+   \renewcommand{\ExampleSectionName}{#1}
+   \section{\ExampleSectionName}
+   \enterTopicHeader{\ExampleSectionName}}
+  {\exitTopicHeader{\ExampleSectionName}}
+
+\setcounter{secnumdepth}{0}
+\newcounter{ExampleBoxCounter}[TopicCounter]
+\newcommand{\examplebox}[1]
+  {
+  % We put this space here to make sure we're disconnected from the previous
+   % passage
+   \stepcounter{ExampleBoxCounter}
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}\enterTopicHeader{\ExampleSectionName}\exitTopicHeader{\ExampleSectionName}\marginpar{\fbox{\#\arabic{ExampleBoxCounter}}}
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \vskip10pt
+   }
+
+\renewcommand{\contentsname}{{\normalsize Topics Covered}}
+\renewcommand{\abstractname}{\LectureTitle\ Summary}
+\renewcommand{\absnamepos}{flushleft}
+
+\theoremstyle{definition}
+\newtheorem*{dfn}{Definition}
+%----------------------------------------------------------------------------------------
+%	CUSTOM COMMANDS DUE TO LAZINESS
+%----------------------------------------------------------------------------------------
+
+%--------------------------------------------
+% Numbers cuz reasons
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\Sp}{{\mathbb S}}
+\newcommand{\A}{{\mathbb A}}
+
+%--------------------------------------------
+% Symbols are long
+\newcommand{\ph}{{\Phi}}
+\newcommand{\vp}{{\varphi}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\mt}{{\mapsto}}
+% Independence
+\newcommand\ind{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independent#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+%--------------------------------------------
+% Partial derivatives are hard
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pp}[2]{\frac{\partial^2 {#1}} {\partial {#2} ^2}}
+\newcommand{\pmix}[3]{\frac{\partial^2 {#1}}{\partial {#2}\, \partial {#3}}}
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS THAT I NEVER REMEMBER LEL
+%----------------------------------------------------------------------------------------
+
+% Integrals
+% \int_{a}^{b} [insert integrand] [insert differential]
+
+% Double integral
+% \iint_{Values being integrated over} [insert integrand] [\, differential] [\, differential]
+
+% Multi integral
+% \idotsint_{Values} [insert integrand f(x, \dots, x_n)] [\, differential \dots differential]
+
+% Summation
+% \sum_{n = start value}^{end value} [function]
+
+% Limits
+% \lim_{x \to value} [function]
+
+% I.I.D.
+% $\overset{\text{i.i.d.}}{\sim}$
+
+% Gradient
+% \nabla (\nabla deez nuts)
+
+% Cases
+% \begin{cases}
+%	{case 1} & \text{if \,} {condition} \\
+%	{case 2} & \text{if \,} {condition} \\
+% \end{cases}
+
+\begin{document}
+\begin{spacing}{1.1}
+\newpage
+
+\tableofcontents
+\addtocontents{toc}{~\hfill\textbf{Page}\par}
+\vskip10pt
+\hrule
+\vskip10pt
+
+% When topics are long, it may be desirable to put a \newpage or a
+% \clearpage before each Topic environment
+% \newpage
+% Use \Roman{TopicCounter} for each new topic so it increments in the table of contents
+% Use \begin{ExampleSection} and \examplebox{} as is necessary
+\begin{Topic}[Decorators]
+What is a decorator?\\\\
+A decorator in Python is a function that modifies the behavior of other functions,
+typically applying some extra functionality.\\
+Let's look at an example and determine what it does (this example also shows the syntax of the @
+to signify the decorator)
+\begin{verbatim}
+def override(func):
+    def incr():
+        return func() + 1
+    return incr
+
+@override
+def one():
+    return 1
+
+print(one())
+# prints 2, since its behavior has been overridden (its return value has been increased by 1, thanks to `override()`)
+\end{verbatim}
+For the most part (in the next pset) you will be using the $@app.route()$ decorator
+to specify the URL associated with a function and which methods (HTTP GET, HTTP POST) apply.
+\end{Topic}
+\begin{Topic}[Flask]
+Flask is a Python-based web microframework that automates the process of building simple web apps.
+
+Applications are typically written in a file called application.py, and the behavior of the entire Flask site springs from there.
+
+The simplest Flask app might look something like this:
+\begin{verbatim}
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return "You are at the index!"
+\end{verbatim}
+What does this code do? What does the $@app.route$ do in this case? To add more url app
+routes just add more to this application.py file!
+\end{Topic}
+\begin{Topic}[Jinja]
+Jinja is a Python inspired templating language. It basically makes it so that you don't
+have to rewrite html code (which is tedious and a waste of time). This allows you to
+have things like a base html file that is taken in and modified (used as a template) by
+other pages in your code. Very convenient stuff.
+
+Basically, you define a simple layout.html or equivalent, leaving some parts as
+"fill-ins" using Jinja’s syntax (this is your page template), and then other .html
+files "extend" this template, filling in those gaps left in the template, sort of
+like a code-based mad libs!
+
+You don't have to know much about this, but if you see different syntax in html files, this is
+that. This is very convenient to use when you are actually developing on the web too.
+Saves a lot of time and helps make less mistakes.
+\end{Topic}
+\begin{Topic}[SQL]
+What is SQL? It is a programming language that is used basically only to manage data in a
+database. It stands for Strucutred Query Language. The 4 SQL commands you'll need to know
+are the ones below.
+\begin{verbatim}
+1. Update: Update data in a database table
+
+# update table, changing values in particular columns
+UPDATE table SET col1 = val1, col2 = val2, ...
+
+# update table, changing col1 to val1 where "name" equals "identifier"
+UPDATE table SET col1 = val1 WHERE identifier = "name"
+
+
+2. INSERT INTO: Insert certain values into a table
+
+# insert into table the row of values
+INSERT INTO table VALUES values
+
+# insert into table under columns col1 & col2, val1 & val2
+INSERT INTO table (col1, col2) VALUES (val1, val2)
+
+
+3. SELECT: Select values to view
+
+# select a column from table to compare/ view
+SELECT col FROM table WHERE col = "identifier"
+
+# select all columns from a table
+SELECT * FROM table
+(generally the * in programming means everything. Fun fact.)
+
+
+
+4. DELETE: Delete from table
+
+# delete a row from table
+DELETE FROM table WHERE col = "identifier"
+\end{verbatim}
+\end{Topic}
+\end{spacing}
+\end{document}
